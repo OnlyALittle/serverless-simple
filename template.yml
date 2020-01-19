@@ -1,0 +1,33 @@
+ROSTemplateFormatVersion: '2015-09-01'
+Transform: 'Aliyun::Serverless-2018-04-03'
+Resources:
+  vpc:
+    Type: 'Aliyun::Serverless::Service'
+    Properties:
+      Description: 'helloworld'
+      # vpc 内网配置
+      VpcConfig:
+        # vpc ID
+        VpcId: vpc-bp128gltizjtl82d95qa1
+        # 该vpc下 交换机ID
+        VSwitchIds:
+          - vsw-bp14mfqf17u08or722pjx
+        # 安全组ID
+        SecurityGroupId: sg-bp10q7yyu6cwjqnzzjh6
+    vpc-mysql-redis:
+      Type: 'Aliyun::Serverless::Function'
+      Properties:
+        Handler: index.handler
+        Initializer: index.initializer
+        Runtime: nodejs10
+        CodeUri: './'
+        Timeout: 10
+        InitializationTimeout: 10
+        EnvironmentVariables:
+          NodeEnv: dev
+      Events:
+        httpTrigger:
+          Type: HTTP
+          Properties:
+            AuthType: ANONYMOUS
+            Methods: ['POST', 'GET']

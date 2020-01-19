@@ -1,0 +1,5 @@
+.env
+package-lock.json
+yarn.json
+template.yml
+.funignore
