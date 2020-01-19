@@ -2,3 +2,4 @@ node_modules/
 .idea/
 .fun
 .env
+.DS_Store
